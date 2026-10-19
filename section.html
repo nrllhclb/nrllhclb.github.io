@@ -1,0 +1,13 @@
+{{ define "main" }}
+<header class="page-head">
+  <h1>{{ .Title }}</h1>
+  {{ with .Content }}<div class="lead">{{ . }}</div>{{ end }}
+</header>
+{{ $pag := .Paginate .Pages }}
+{{ range $pag.Pages }}
+  {{ partial "post-item.html" . }}
+{{ else }}
+  <p class="muted">Henüz yazı yok.</p>
+{{ end }}
+{{ partial "sayfalama.html" $pag }}
+{{ end }}

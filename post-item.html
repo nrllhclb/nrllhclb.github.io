@@ -1,0 +1,9 @@
+<article class="post-item">
+  <div class="post-meta">
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ partial "tarih.html" .Date }}</time>
+    {{ with .GetTerms "kategoriler" }}{{ range . }}<a class="pill pill-{{ .Title | urlize }}" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}{{ end }}
+    <span>{{ .ReadingTime }} dk okuma</span>
+  </div>
+  <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+  <p>{{ .Description | default .Summary | plainify | truncate 180 }}</p>
+</article>

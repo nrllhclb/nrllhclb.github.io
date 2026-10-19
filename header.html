@@ -1,0 +1,21 @@
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="{{ "/" | relURL }}" aria-label="{{ site.Title }} ana sayfa">
+      <svg class="brand-wave" viewBox="0 0 48 20" aria-hidden="true">
+        <polyline points="1,16 7,16 7,4 15,4 15,16 23,16 23,4 31,4 31,16 39,16 39,4 47,4" />
+      </svg>
+      <span>{{ site.Title }}</span>
+    </a>
+    <nav class="nav" aria-label="Ana menü">
+      {{ $current := . }}
+      {{ range site.Menus.main }}
+        {{ $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .) (eq (strings.TrimSuffix "/" $current.RelPermalink) (strings.TrimSuffix "/" .URL)) }}
+        <a href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{ end }}
+      <button class="theme-toggle" type="button" aria-label="Açık/koyu tema" title="Açık/koyu tema"
+        onclick="var h=document.documentElement,n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);try{localStorage.setItem('tema',n)}catch(e){}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>

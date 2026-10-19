@@ -1,0 +1,41 @@
+{{ define "main" }}
+{{ $isPost := eq .Section "yazilar" }}
+<article class="post">
+  <header class="post-head">
+    {{ if $isPost }}
+    <div class="post-meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ partial "tarih.html" .Date }}</time>
+      {{ with .GetTerms "kategoriler" }}{{ range . }}<a class="pill pill-{{ .Title | urlize }}" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}{{ end }}
+      <span>{{ .ReadingTime }} dk okuma</span>
+    </div>
+    {{ end }}
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
+  </header>
+
+  {{ if and $isPost (ne .Params.icindekiler false) (gt (len .TableOfContents) 80) }}
+  <details class="toc" open>
+    <summary>İçindekiler</summary>
+    {{ .TableOfContents }}
+  </details>
+  {{ end }}
+
+  <div class="prose">
+    {{ .Content }}
+  </div>
+
+  {{ if $isPost }}
+  <footer class="post-foot">
+    {{ with .GetTerms "etiketler" }}
+    <div class="tags">
+      {{ range . }}<a href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a>{{ end }}
+    </div>
+    {{ end }}
+    <nav class="prevnext" aria-label="Diğer yazılar">
+      {{ with .NextInSection }}<a class="prev" href="{{ .RelPermalink }}"><small>← Daha yeni</small>{{ .Title }}</a>{{ else }}<span></span>{{ end }}
+      {{ with .PrevInSection }}<a class="next" href="{{ .RelPermalink }}"><small>Daha eski →</small>{{ .Title }}</a>{{ end }}
+    </nav>
+  </footer>
+  {{ end }}
+</article>
+{{ end }}

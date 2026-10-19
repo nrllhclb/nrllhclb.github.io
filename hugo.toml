@@ -1,0 +1,62 @@
+# ------------------------------------------------------------------
+#  Site ayarları — kendi bilgilerinle değiştirmen gereken yerler
+#  "DEĞİŞTİR" yorumu ile işaretlendi.
+# ------------------------------------------------------------------
+
+# DEĞİŞTİR: GitHub kullanıcı adınla değiştir. (Yayın sırasında GitHub
+# bu adresi otomatik olarak da ayarlar, burada yazman yine de iyi olur.)
+baseURL = "https://KULLANICIADI.github.io/"
+
+locale = "tr-TR"
+defaultContentLanguage = "tr"
+title = "Doğrulama Defteri"   # DEĞİŞTİR: sitenin adı
+enableRobotsTXT = true
+enableGitInfo = false
+
+[pagination]
+  pagerSize = 10
+
+[params]
+  # DEĞİŞTİR: sitenin kısa tanımı (arama motorlarında ve ana sayfada görünür)
+  description = "SystemVerilog ve UVM üzerine Türkçe teknik yazılar: tasarım doğrulama, testbench mimarisi ve pratik örnekler."
+  author = "Adın Soyadın"          # DEĞİŞTİR
+  github = ""                      # isteğe bağlı: "kullaniciadi"
+  linkedin = ""                    # isteğe bağlı: tam LinkedIn profil adresi
+  email = ""                       # isteğe bağlı
+
+[taxonomies]
+  kategori = "kategoriler"
+  etiket = "etiketler"
+
+[menus]
+  [[menus.main]]
+    name = "Yazılar"
+    pageRef = "/yazilar"
+    weight = 10
+  [[menus.main]]
+    name = "SystemVerilog"
+    pageRef = "/kategoriler/systemverilog"
+    weight = 20
+  [[menus.main]]
+    name = "UVM"
+    pageRef = "/kategoriler/uvm"
+    weight = 30
+  [[menus.main]]
+    name = "Hakkında"
+    pageRef = "/hakkinda"
+    weight = 40
+
+[markup]
+  [markup.highlight]
+    noClasses = false      # renkler assets/css/chroma-*.css dosyalarından gelir
+    lineNos = false
+    tabWidth = 4
+  [markup.goldmark.renderer]
+    unsafe = true          # yazılarda gerekirse HTML kullanabilmek için
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]

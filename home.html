@@ -1,0 +1,33 @@
+{{ define "main" }}
+<section class="hero">
+  <p class="eyebrow">SystemVerilog · UVM · Tasarım Doğrulama</p>
+  <h1>{{ .Params.baslik | default site.Title }}</h1>
+  <div class="hero-lead">{{ .Content }}</div>
+</section>
+
+<section class="topics" aria-label="Konular">
+  {{ range slice "SystemVerilog" "UVM" }}
+    {{ $term := site.GetPage (printf "/kategoriler/%s" (. | urlize)) }}
+    {{ $n := 0 }}{{ with $term }}{{ $n = len .Pages }}{{ end }}
+    <a class="topic topic-{{ . | urlize }}" href="{{ with $term }}{{ .RelPermalink }}{{ else }}#{{ end }}">
+      <span class="topic-tag">{{ if eq . "UVM" }}uvm_component{{ else }}module / class{{ end }}</span>
+      <strong>{{ . }}</strong>
+      <span class="topic-desc">{{ if eq . "UVM" }}Testbench mimarisi, fazlar, sequence'lar, scoreboard ve coverage.{{ else }}Veri tipleri, arayüzler, OOP, randomizasyon ve assertion'lar.{{ end }}</span>
+      <span class="topic-count">{{ $n }} yazı →</span>
+    </a>
+  {{ end }}
+</section>
+
+<section class="recent">
+  <div class="section-head">
+    <h2>Son yazılar</h2>
+    {{ with site.GetPage "/yazilar" }}<a href="{{ .RelPermalink }}">Tümünü gör →</a>{{ end }}
+  </div>
+  {{ $posts := where site.RegularPages "Section" "yazilar" }}
+  {{ range first 6 $posts }}
+    {{ partial "post-item.html" . }}
+  {{ else }}
+    <p class="muted">Henüz yazı yok.</p>
+  {{ end }}
+</section>
+{{ end }}

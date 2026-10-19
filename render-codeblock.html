@@ -1,0 +1,12 @@
+{{- $lang := .Type | default "text" -}}
+{{- $labels := dict "systemverilog" "SystemVerilog" "sv" "SystemVerilog" "verilog" "Verilog" "vhdl" "VHDL" "tcl" "Tcl" "python" "Python" "bash" "Shell" "sh" "Shell" "makefile" "Makefile" "text" "" -}}
+{{- $label := $lang -}}{{- with index $labels $lang }}{{ $label = . }}{{ else }}{{ if eq $lang "text" }}{{ $label = "" }}{{ end }}{{ end -}}
+<div class="code-block">
+  {{- if or $label .Attributes.title }}
+  <div class="code-bar">
+    <span>{{ with .Attributes.title }}{{ . }}{{ else }}{{ $label }}{{ end }}</span>
+    <button type="button" class="copy" onclick="var b=this,c=b.closest('.code-block').querySelector('pre code');navigator.clipboard&&navigator.clipboard.writeText(c.innerText).then(function(){b.textContent='Kopyalandı';setTimeout(function(){b.textContent='Kopyala'},1500)})">Kopyala</button>
+  </div>
+  {{- end }}
+  {{- transform.Highlight .Inner $lang .Options }}
+</div>

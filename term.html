@@ -1,0 +1,12 @@
+{{ define "main" }}
+<header class="page-head">
+  <p class="eyebrow">{{ if eq .Data.Plural "kategoriler" }}Kategori{{ else }}Etiket{{ end }}</p>
+  <h1>{{ .Title }}</h1>
+  <p class="lead">{{ len .Pages }} yazı</p>
+</header>
+{{ $pag := .Paginate .Pages }}
+{{ range $pag.Pages }}
+  {{ partial "post-item.html" . }}
+{{ end }}
+{{ partial "sayfalama.html" $pag }}
+{{ end }}

@@ -1,0 +1,2 @@
+{{- $aylar := slice "Ocak" "Şubat" "Mart" "Nisan" "Mayıs" "Haziran" "Temmuz" "Ağustos" "Eylül" "Ekim" "Kasım" "Aralık" -}}
+{{- printf "%d %s %d" .Day (index $aylar (sub (int .Month) 1)) .Year -}}
